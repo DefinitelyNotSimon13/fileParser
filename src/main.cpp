@@ -4,10 +4,16 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 #include "functions.hpp"
 
+void checkTerminalSize();
+
 int main(int argc, char *argv[]) {
+  checkTerminalSize();
+
   std::ifstream file(argv[1]);
 
   // Check if file is open
@@ -24,7 +30,7 @@ int main(int argc, char *argv[]) {
   std::cout << "This will result in an output with " << lines << " lines!\n\n";
   std::cout << "\e[3mLegend:\n\t\"EN | -\" = Enter\n\t\"NA | .\" = Not ASCII "
                "(one symbol "
-               "can result in multiple characters)\e[0m\n";
+               "can result in multiple characters)\e[0m\n\n";
 
   uint16_t firstColumn = 0;
   std::string divider = "-----------------------------------------------------";
@@ -76,4 +82,23 @@ int main(int argc, char *argv[]) {
          divider.c_str());
 
   return 0;
+}
+
+void checkTerminalSize() {
+
+  uint16_t cols = 0;
+#ifdef TIOCGSIZE
+  struct ttysize ts;
+  ioctl(STDIN_FILENO, TIOCGSIZE, &ts);
+  cols = ts.ts_cols;
+#elif defined(TIOCGWINSZ)
+  struct winsize ts;
+  ioctl(STDIN_FILENO, TIOCGWINSZ, &ts);
+  cols = ts.ws_col;
+#endif /* TIOCGSIZE */
+  if (cols < 80) {
+    std::cout << "\e[31mYour terminal is to small (" << cols << "cols)!\n"
+              << "Please restart the application in a bigger terminal\e[0m\n";
+    std::exit(1);
+  }
 }

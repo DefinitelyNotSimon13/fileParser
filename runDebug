@@ -1,11 +1,23 @@
 #! /usr/bin/bash
 
 function error {
-  echo "Thats not a valid option - only -b"
+  echo "Thats not a valid option - only -b and -a"
 }
+function build {
+  echo "Building application..."
+  cmake --build build/Debug 1> /dev/null 2> /dev/tty
+}
+ARGS=""
+echo $@
+while getopts "ba:" o; do
+  case $o in
+    (b) build;;
+    (a) ARGS=$OPTARG;;
+    (*) error
+  esac
+done
 
-echo "Building application..."
-cmake --build build/Debug 1> /dev/null 2> /dev/tty
+echo $ARGS
 
 currentDateTime=$(date +"%H%M%S-%d%m%Y")
 COLUMNS=$(tput cols)
@@ -22,8 +34,12 @@ sleep 0.2
 startSecond=$(date +%s%N)
 printf "%s\n\n" "$VDIV"
 printf "\e[32m"
-./build/Debug/Task08-02-2024 $@ |& tee logs/log${currentDateTime}.txt \
-  | ts '[%d.%m.%Y %H:%M:%S]'
+if [ $COLUMNS -gt 102 ]; then
+  ./build/Debug/Task08-02-2024 $ARGS |& tee logs/log${currentDateTime}.txt \
+    | ts '[%d.%m.%Y %H:%M:%S]'
+else
+  ./build/Debug/Task08-02-2024 $ARGS |& tee logs/log${currentDateTime}.txt
+fi
 printf "\e[0m"
 
 endSecond=$(date +%s%N)

@@ -16,5 +16,4 @@ extern bool processToSmall(char c, std::stringstream &hexStream,
                            std::stringstream &charStream);
 extern bool processToBig(char c, std::stringstream &hexStream,
                          std::stringstream &charStream);
-
 #endif

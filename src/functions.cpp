@@ -3,7 +3,6 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
-#include <stdexcept>
 
 void checkFile(const std::ifstream &file) {
   if (!file.is_open()) {
