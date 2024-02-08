@@ -1,0 +1,6 @@
+The file is 128 bytes long.
+This will result in an output with 9 lines!
+
+[0m[1m| Something| Hexadecimal                                     | Characters       |
+|----------+-------------------------------------------------+------------------|
+[0mT

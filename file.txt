@@ -1,6 +1,8 @@
-Hallo welt
-das ist toll
-
-
-
-yayyy:welt  
+😀
+©
+漢
+漢
+漢
+This is a text file, which will be read as binary and displayed
+as Hexfile in the Hexviewer. 
+ä hallo welt

@@ -1,19 +1,11 @@
 #! /usr/bin/bash
 
-function build {
-  cmake --build build/Debug
-}
-
 function error {
   echo "Thats not a valid option - only -b"
 }
 
-while getopts "b" o; do
-  case $o in
-    (b) build;;
-    (*) error
-  esac
-done
+echo "Building application..."
+cmake --build build/Debug 1> /dev/null 2> /dev/tty
 
 currentDateTime=$(date +"%H%M%S-%d%m%Y")
 COLUMNS=$(tput cols)
@@ -30,14 +22,14 @@ sleep 0.2
 startSecond=$(date +%s%N)
 printf "%s\n\n" "$VDIV"
 printf "\e[32m"
-./build/Debug/Task08-02-2024 |& tee logs/log${currentDateTime}.txt \
+./build/Debug/Task08-02-2024 $@ |& tee logs/log${currentDateTime}.txt \
   | ts '[%d.%m.%Y %H:%M:%S]'
 printf "\e[0m"
 
 endSecond=$(date +%s%N)
 
 miliSecondDiff=$(((endSecond - startSecond)/1000000))
-printf "%s\n" "$VDIV"
+printf "\n%s\n" "$VDIV"
 printf "\n\e[3m%s\nRuntime: \e[0m\e[1m%s\e[0m\e[3m\n%s\e[0m\n"\
   "Programm has finished!"\
   "${miliSecondDiff}ms" \
