@@ -1,0 +1,7 @@
+{ 
+  "name":  "Fileparser",
+  "description": "This programm takes a file and parses it into hex and ASCII values",,
+  "language": "C++20",
+  "version": "1.0.0",
+  "category": "uni"
+}
