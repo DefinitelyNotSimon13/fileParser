@@ -1,0 +1,3 @@
+This is a text file, which will be read as binary and displayed
+as Hexfile in the Hexviewer. 
+ä hallo welt
