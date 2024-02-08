@@ -15,12 +15,15 @@ int main(int argc, char *argv[]) {
 
   // Get file length and line Nr.
   const uint32_t length = getFileLength(file);
-  const uint16_t lines = length / 16 + 1;
+  const uint16_t lines = length != 0 ? length / 16 + 1 : 0;
 
   // Display status
-  std::cout << "The file is " << length << " bytes long.\n";
+  std::string display = length > 1000 ? std::to_string(length / 1000) + "MB"
+                                      : std::to_string(length) + " bytes";
+  std::cout << "The file is " << display << " long.\n";
   std::cout << "This will result in an output with " << lines << " lines!\n\n";
-  std::cout << "\e[3mLegend:\n\t\"EN | -\" = Enter\n\t\"NA | .\" = Not ASCII (one symbol "
+  std::cout << "\e[3mLegend:\n\t\"EN | -\" = Enter\n\t\"NA | .\" = Not ASCII "
+               "(one symbol "
                "can result in multiple characters)\e[0m\n";
 
   uint16_t firstColumn = 0;
@@ -44,6 +47,9 @@ int main(int argc, char *argv[]) {
       ++linePosition;
 
       uint32_t position = y + (i * 16);
+      if (position >= length - 1) {
+        break;
+      }
       char c = getCharAtPosition(file, position);
 
       if (processToSmall(c, hexStream, charStream)) {
@@ -57,7 +63,6 @@ int main(int argc, char *argv[]) {
       }
       processASCII(c, hexStream, charStream);
     }
-    
 
     std::string stringHexes = hexStream.str();
     std::string stringChars = charStream.str();
