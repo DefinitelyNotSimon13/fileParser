@@ -1,0 +1,53 @@
+#! /usr/bin/bash
+
+function build {
+  cmake --build build/Debug
+}
+
+function error {
+  echo "Thats not a valid option - only -b"
+}
+
+while getopts "b" o; do
+  case $o in
+    (b) build;;
+    (*) error
+  esac
+done
+
+currentDateTime=$(date +"%H%M%S-%d%m%Y")
+COLUMNS=$(tput cols)
+COUNTER=0
+VDIV=""
+while [ $COUNTER -lt $COLUMNS ]; do
+  VDIV+="_"
+  COUNTER=$(($COUNTER + 1))
+done
+printf "%s\n" "$VDIV"
+printf "\n\e[3m Starting programm... \e[0m\n"
+sleep 0.2
+
+startSecond=$(date +%s%N)
+printf "%s\n\n" "$VDIV"
+printf "\e[32m"
+./build/Debug/Task08-02-2024 |& tee logs/log${currentDateTime}.txt \
+  | ts '[%d.%m.%Y %H:%M:%S]'
+printf "\e[0m"
+
+endSecond=$(date +%s%N)
+
+miliSecondDiff=$(((endSecond - startSecond)/1000000))
+printf "%s\n" "$VDIV"
+printf "\n\e[3m%s\nRuntime: \e[0m\e[1m%s\e[0m\e[3m\n%s\e[0m\n"\
+  "Programm has finished!"\
+  "${miliSecondDiff}ms" \
+  "See logs for more details"
+printf "%s\n" "$VDIV"
+sleep 0.5
+while [ $(ls logs -1 | wc -l) -gt 10 ]; do
+  echo -e "\e[33mMore then 10 log files have been found!"
+  oldestFile="$(ls logs/ -rt | head -n 1)"
+  printf "Deleting \e[3m%s\e[0m\n" "$oldestFile"
+  rm -- logs/$oldestFile
+  sleep 0.2
+done
