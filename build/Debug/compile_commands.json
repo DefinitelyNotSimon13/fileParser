@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/simon/1_Coding/task08-02-2024/build/Debug",
+  "command": "/usr/bin/c++  -I/home/simon/1_Coding/task08-02-2024/build/Debug -I/home/simon/1_Coding/task08-02-2024/src -g -std=gnu++17 -o CMakeFiles/Task08-02-2024.dir/src/main.cpp.o -c /home/simon/1_Coding/task08-02-2024/src/main.cpp",
+  "file": "/home/simon/1_Coding/task08-02-2024/src/main.cpp",
+  "output": "CMakeFiles/Task08-02-2024.dir/src/main.cpp.o"
+}
+]
