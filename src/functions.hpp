@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 extern void checkFile(const std::ifstream &file);
-extern const uint32_t getFileLength(std::ifstream &file);
+extern uint32_t getFileLength(std::ifstream &file);
 extern char getCharAtPosition(std::ifstream &file, uint32_t position);
 extern void processASCII(char c, std::stringstream &hexStream,
                          std::stringstream &charStream);
