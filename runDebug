@@ -1,23 +1,43 @@
 #! /usr/bin/bash
 
 function error {
-  echo "Thats not a valid option - only -b and -a"
+  printf "\e[31mInvalid argument!\e[0m\n"
+  printf "Usage: runDebug [-b] [-a <args>] -e <executable>\n"
+  printf "  -b: Build the application\n"
+  printf "  -a: Arguments for the application\n"
+  printf "  -e: Path to the executable\n"
+  exit 1
 }
 function build {
   echo "Building application..."
   cmake --build build/Debug 1> /dev/null 2> /dev/tty
 }
+
 ARGS=""
-echo $@
-while getopts "ba:" o; do
+EXECUTABLE=""
+while getopts "ba:e:" o; do
   case $o in
     (b) build;;
     (a) ARGS=$OPTARG;;
+    (e) EXECUTABLE=$OPTARG;;
     (*) error
   esac
 done
 
-echo $ARGS
+if [ -z "$EXECUTABLE" ]; then
+  if [ -f ".cache/lastExecutable" ]; then
+    EXECUTABLE=$(cat .cache/lastExecutable)
+  else
+    printf "\e[31mNo executable found!\e[0m\n"
+    echo "Please provide a path to the executable with -e"
+    exit 1
+  fi
+else
+  mkdir .cache 2> /dev/null
+  echo $EXECUTABLE > .cache/lastExecutable
+fi
+
+
 
 currentDateTime=$(date +"%H%M%S-%d%m%Y")
 COLUMNS=$(tput cols)
@@ -35,10 +55,10 @@ startSecond=$(date +%s%N)
 printf "%s\n\n" "$VDIV"
 printf "\e[32m"
 if [ $COLUMNS -gt 102 ]; then
-  ./build/Debug/Task08-02-2024 $ARGS |& tee logs/log${currentDateTime}.txt \
+  ./$EXECUTABLE $ARGS |& tee logs/log${currentDateTime}.txt \
     | ts '[%d.%m.%Y %H:%M:%S]'
 else
-  ./build/Debug/Task08-02-2024 $ARGS |& tee logs/log${currentDateTime}.txt
+  ./$EXECUTABLE $ARGS |& tee logs/log${currentDateTime}.txt
 fi
 printf "\e[0m"
 
