@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="6233272706292958014">
+  <FileInfo check="Bounds checking">
+    <array-index>
+    <unsafe-usage my-id="src/main.cpp:14:5" my-argnr="2" my-argname="argv" file="src/main.cpp" line="17" col="22" value="1"/>
+    </array-index>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="src/main.cpp:14:5" my-argnr="2" my-argname="argv" file="src/main.cpp" line="17" col="22" value="0"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <array-index>
+    <unsafe-usage my-id="src/main.cpp:14:5" my-argnr="2" my-argname="argv" file="src/main.cpp" line="17" col="22" value="1"/>
+    </array-index>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="src/main.cpp:14:5" my-argnr="2" my-argname="argv" file="src/main.cpp" line="17" col="22" value="0"/>
+  </FileInfo>
+  <FileInfo check="Bounds checking">
+    <array-index>
+    <unsafe-usage my-id="src/main.cpp:14:5" my-argnr="2" my-argname="argv" file="src/main.cpp" line="17" col="22" value="1"/>
+    </array-index>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="src/main.cpp:14:5" my-argnr="2" my-argname="argv" file="src/main.cpp" line="17" col="22" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="main" lineNumber="14"/>
+    <functiondecl functionName="checkTerminalSize" lineNumber="83"/>
+    <functiondecl functionName="main" lineNumber="14"/>
+    <functiondecl functionName="checkTerminalSize" lineNumber="83"/>
+    <functiondecl functionName="main" lineNumber="14"/>
+    <functiondecl functionName="checkTerminalSize" lineNumber="83"/>
+    <functioncall functionName="STDIN_FILENO"/>
+    <functioncall functionName="c_str"/>
+    <functioncall functionName="checkFile"/>
+    <functioncall functionName="checkTerminalSize"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="file"/>
+    <functioncall functionName="getCharAtPosition"/>
+    <functioncall functionName="getFileLength"/>
+    <functioncall functionName="ioctl"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="processASCII"/>
+    <functioncall functionName="processEnter"/>
+    <functioncall functionName="processToBig"/>
+    <functioncall functionName="processToSmall"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="to_string"/>
+  </FileInfo>
+</analyzerinfo>

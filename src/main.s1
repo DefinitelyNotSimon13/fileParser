@@ -1,0 +1,2 @@
+main call:[c_str,checkFile,checkTerminalSize,file,getCharAtPosition,getFileLength,printf,processASCII,processEnter,processToBig,processToSmall,str,to_string] noreturn:[processASCII]
+checkTerminalSize call:[exit] noreturn:[exit]
