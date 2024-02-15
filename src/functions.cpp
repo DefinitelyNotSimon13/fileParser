@@ -12,7 +12,7 @@ void checkFile(const std::ifstream &file) {
   }
 }
 
-const uint32_t getFileLength(std::ifstream &file) {
+uint32_t getFileLength(std::ifstream &file) {
   file.seekg(0, std::ios::end);
   uint32_t length = file.tellg();
   file.seekg(0, std::ios::beg);
@@ -45,7 +45,7 @@ bool processEnter(char c, std::stringstream &hexStream,
 
 bool processToSmall(char c, std::stringstream &hexStream,
                     std::stringstream &charStream) {
-  if (c >= 0) {
+  if (c >= 32) {
     return false;
   }
   hexStream << " "
