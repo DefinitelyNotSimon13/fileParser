@@ -58,13 +58,13 @@ int main(int argc, char *argv[]) {
       }
       char c = getCharAtPosition(file, position);
 
+      if (processEnter(c, hexStream, charStream)) {
+        continue;
+      }
       if (processToSmall(c, hexStream, charStream)) {
         continue;
       }
       if (processToBig(c, hexStream, charStream)) {
-        continue;
-      }
-      if (processEnter(c, hexStream, charStream)) {
         continue;
       }
       processASCII(c, hexStream, charStream);
