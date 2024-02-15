@@ -46,7 +46,6 @@ int main(int argc, char *argv[]) {
   for (uint32_t i = 0; i < lines; ++i) {
     std::stringstream hexStream;
     std::stringstream charStream;
-    bool first = true;
     int8_t linePosition = 0;
 
     for (uint8_t y = 0; linePosition < 16; ++y) {
